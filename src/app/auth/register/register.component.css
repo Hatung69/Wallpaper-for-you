@@ -1,0 +1,16 @@
+.z-depth-1a {
+  -webkit-box-shadow: 0 2px 5px 0 rgb(0, 255, 115),
+    0 4px 12px 0 rgba(0, 255, 136, 0.25);
+  box-shadow: 0 2px 5px 0 rgba(0, 255, 64, 0.26),
+    0 4px 12px 0 rgba(0, 255, 76, 0.25);
+}
+.bg {
+  /* The image used */
+  background-image: url("src/assets/img/bg-signup.jpg");
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

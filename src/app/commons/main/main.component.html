@@ -1,0 +1,148 @@
+<!-- Intro -->
+<div class="card card-intro elegant-color mt-5 bg">
+  <div class="card-body white-text rounded-lg rgba-black-light text-center">
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center">
+      <div
+        class="card-body card-body-cascade text-center wow fadeIn"
+        data-wow-delay="0.2s"
+        style="
+          visibility: visible;
+          animation-name: fadeIn;
+          animation-delay: 0.2s;
+        "
+      >
+        <!--Title-->
+        <h1 class="card-title">
+          <strong>Hình ảnh miễn phí chất lượng </strong>
+        </h1>
+        <h5 class="blue-text"><strong>Wallpaper for you</strong></h5>
+
+        <p class="card-text">
+          Trang web cung cấp các loại hình nền chất lượng cao đến từ khắp vũ
+          trụ, được tạo nên bởi Nhà tiên tri ánh sáng xuyên không gian và thời
+          gian Hà Việt Tùng.
+        </p>
+
+        <a
+          class="btn btn-info btn-lg waves-effect waves-light animated fadeInLeft"
+          (click)="frame.show()"
+          >&nbsp;&nbsp;<mdb-icon fas icon="jedi"></mdb-icon> Giới
+          thiệu&nbsp;&nbsp;</a
+        >
+        <a
+          class="btn btn-danger btn-lg waves-effect waves-light animated fadeInUp"
+          (click)="frame2.show()"
+          ><mdb-icon fas icon="spider"></mdb-icon> Đóng góp ý kiến</a
+        >
+        <a
+          class="btn btn-success btn-lg waves-effect waves-light animated fadeInRight"
+          ><mdb-icon fas icon="upload"></mdb-icon> Tải ảnh lên</a
+        >
+      </div>
+    </div>
+    <!--Grid row-->
+  </div>
+</div>
+
+<!-- Intro -->
+
+<!-- BUTTON INFO -->
+<div
+  mdbModal
+  #frame="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Giới thiệu về trang web</p>
+
+        <a class="close" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </a>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <mdb-icon
+            fas
+            icon="jedi"
+            size="4x"
+            class="mb-3 animated rotateIn"
+          ></mdb-icon>
+          <div class="text-dark">
+            <h3 class="font-weight-bold text-center">
+              <span class="text-success">W</span>allpapers for you
+            </h3>
+            <p>
+              Là trang Web cho phép mọi người có thể tải hình ảnh của bản thân
+              lên để chia sẻ và lưu trữ lại trên kho lưu trữ trực tuyến hoàn
+              toàn miễn phí, bên cạnh đó người dùng có thể tải về hình ảnh mà họ
+              thích để sử dụng ở mọi nơi. ( Dính bản quyền thì tự chịu :v )
+            </p>
+            <p>
+              Trang Web được làm ra để phục vụ cá nhân thôi. Vì vậy mọi hình ảnh
+              bản quyền thì em không biết gì đâu, đừng bắt em huhu :(((
+            </p>
+            <img
+              src="/assets/img/intro.jpg"
+              class="rounded mx-auto d-block"
+              width="300px"
+              alt="Image intro"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUTTON DANGER -->
+<div
+  mdbModal
+  #frame2="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Đóng góp ý kiến</p>
+
+        <a class="close" aria-label="Close" (click)="frame2.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </a>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <mdb-icon
+            fas
+            icon="spider"
+            size="4x"
+            class="mb-3 animated rotateIn"
+          ></mdb-icon>
+          <div class="text-dark">
+            Comming soon !
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="row bg animated zoomIn">
+  <div class="col-md-4 mx-auto my-4 pb-5 pt-5 animated zoomInDown">
+    <section class="form-elegant pt-4">
+      <mdb-card>
+        <mdb-card-body class="mx-2">
+          <!--Header-->
+          <div class="text-center">
+            <h1>
+              <strong>Đăng ký</strong>
+            </h1>
+          </div>
+
+          <!-- Form -->
+          <form
+            [formGroup]="registerForm"
+            (ngSubmit)="register(registerForm.value)"
+          >
+            <!-- E-mail -->
+            <div class="md-form">
+              <mdb-icon
+                fas
+                icon="envelope"
+                class="prefix grey-text float-left"
+              ></mdb-icon>
+              <input
+                formControlName="email"
+                id="materialRegisterFormEmail"
+                class="form-control"
+                mdbInput
+              />
+              <label for="materialRegisterFormEmail">Email</label>
+              <small
+                [ngClass]="{
+                  'text-danger': registerForm.controls.email.errors?.email
+                }"
+                id="materialRegisterFormPhoneHelpBlock"
+                class="form-text text-muted mb-4 white-text"
+              >
+                Liệu mà nhập cho đúng cái định dạng mail !
+              </small>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+              <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+              <input
+                formControlName="password"
+                type="password"
+                id="materialRegisterFormPassword"
+                class="form-control"
+                aria-describedby="materialRegisterFormPasswordHelpBlock"
+                mdbInput
+              />
+              <label for="materialRegisterFormPassword">Mật khẩu</label>
+              <small
+                id="materialRegisterFormPasswordHelpBlock"
+                class="form-text text-muted mb-4"
+              >
+                Ít nhất 100 ký tự ( thích thì 6 cũng đc )
+              </small>
+            </div>
+
+            <!-- Confirm password -->
+            <div class="md-form">
+              <mdb-icon
+                fas
+                icon="shield-alt"
+                class="prefix grey-text"
+              ></mdb-icon>
+              <input
+                formControlName="confirmPassword"
+                type="password"
+                id="materialRegisterFormPhone"
+                class="form-control"
+                aria-describedby="materialRegisterFormPhoneHelpBlock"
+                mdbInput
+              />
+              <label for="materialRegisterFormPhone">Xác nhận mật khẩu</label>
+              <small
+                [ngClass]="{
+                  'text-danger':
+                    registerForm.controls.confirmPassword.errors?.mustMatch
+                }"
+                id="materialRegisterFormPhoneHelpBlock"
+                class="form-text text-muted mb-4 white-text"
+              >
+                Nhập sao cho giống mật khẩu ở trên dùm cái !
+              </small>
+            </div>
+
+            <!-- Sign up button -->
+            <button
+              [disabled]="registerForm.invalid"
+              type="submit"
+              mdbBtn
+              color="success"
+              block="true"
+              rounded="true"
+              class="z-depth-1a waves-light rounded-pill"
+              mdbWavesEffect
+            >
+              Đăng ký
+            </button>
+            <div class="pt-2 text-center" *ngIf="isLoading">
+              <div class="spinner-grow text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-grow text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </form>
+          <!-- Form -->
+        </mdb-card-body>
+        <!--Footer-->
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small grey-text d-flex justify-content-end">
+            Có Acc rồi à?
+            <a href="/login" class="blue-text ml-1"> Đăng nhập ngay!</a>
+          </p>
+        </div>
+      </mdb-card>
+    </section>
+  </div>
+</div>

@@ -1,1 +1,58 @@
-<p>header works!</p>
+<header>
+  <mdb-navbar
+    SideClass="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar elegant-color-dark"
+  >
+    <!-- Navbar brand -->
+    <mdb-navbar-brand
+      ><a class="navbar-brand font-brand" href="#"
+        ><strong class="text-success">W</strong>allpapers for you</a
+      >
+    </mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Search form -->
+        <form class="form-inline input-group-sm mr-1">
+          <input
+            class="form-control rounded-pill"
+            type="text"
+            placeholder="Tìm tên hoặc thể loại..."
+            mdbInput
+          />
+        </form>
+        <!-- Button auth -->
+        <li class="nav-item mt-1">
+          <a
+            href="/login"
+            class="nav-link waves-light rounded-pill text-success font-weight-bold"
+            mdbWavesEffect
+            ><mdb-icon fas icon="sign-in-alt"></mdb-icon>Đăng nhập</a
+          >
+        </li>
+        <li class="nav-item mt-1">
+          <a
+            color="danger"
+            href="/register"
+            class="nav-link waves-light rounded-pill text-info font-weight-bold"
+            mdbWavesEffect
+            ><mdb-icon fas icon="pen"></mdb-icon>Đăng ký</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            mdbBtn
+            color="danger"
+            href="/profile"
+            class="nav-link waves-light font-weight-bold rounded-pill btn-sm"
+            mdbWavesEffect
+            ><mdb-icon fas icon="user"></mdb-icon> Tài khoản &nbsp;</a
+          >
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  </mdb-navbar>
+</header>

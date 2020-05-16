@@ -1,0 +1,126 @@
+<div class="row bg animated zoomIn">
+  <div class="col-md-4 mx-auto my-4 pb-5 pt-5 animated zoomInUp">
+    <section class="form-elegant pt-4">
+      <mdb-card>
+        <mdb-card-body class="mx-2">
+          <!--Header-->
+          <div class="text-center">
+            <h1>
+              <strong>Đăng nhập</strong>
+            </h1>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+            <div class="md-form">
+              <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+              <input
+                formControlName="email"
+                type="text"
+                required
+                id="elegantFormEmailEx"
+                class="form-control"
+                mdbInput
+              />
+              <label for="elegantFormEmailEx">Email</label>
+              <small
+                id="materialRegisterFormPhoneHelpBlock"
+                class="form-text animated pulse infinite mb-4 purple-text"
+              >
+                Liệu mà nhập cho đúng cái mail !
+              </small>
+            </div>
+
+            <div class="md-form">
+              <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+              <input
+                formControlName="password"
+                required
+                type="password"
+                id="elegantFormPasswordEx"
+                class="form-control"
+                mdbInput
+              />
+              <label for="elegantFormPasswordEx">Mật khẩu</label>
+              <small
+                id="materialRegisterFormPasswordHelpBlock"
+                class="form-text text-muted mb-4"
+              >
+                Ít nhất 6 ký tự, nhớ mà nhập cho đúng
+              </small>
+              <p class="font-small blue-text d-flex justify-content-end">
+                <a href="#" class="blue-text ml-1"> Quên mật khẩu à?</a>
+              </p>
+            </div>
+            <div class="text-center mb-3">
+              <button
+                [disabled]="loginForm.invalid"
+                type="submit"
+                mdbBtn
+                color="info"
+                block="true"
+                class="z-depth-1a waves-light rounded-pill"
+                mdbWavesEffect
+              >
+                Đăng nhập
+              </button>
+            </div>
+          </form>
+          <!--Body-->
+
+          <p
+            class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"
+          >
+            Đăng nhập bằng tài khoản khác:
+          </p>
+
+          <div class="row my-3 d-flex justify-content-center">
+            <!--Facebook-->
+            <button
+              type="button"
+              mdbBtn
+              color="white"
+              rounded="true"
+              class="mr-md-3 z-depth-1a waves-light rounded-pill"
+              mdbWavesEffect
+            >
+              <mdb-icon
+                fab
+                icon="facebook-f"
+                class="blue-text text-center"
+              ></mdb-icon>
+            </button>
+            <!--Google-->
+            <button
+              type="button"
+              mdbBtn
+              color="white"
+              rounded="true"
+              class="mr-md-3 z-depth-1a waves-light rounded-pill"
+              mdbWavesEffect
+            >
+              <mdb-icon fab icon="google" class="blue-text"></mdb-icon>
+            </button>
+            <!--Google-->
+            <button
+              type="button"
+              mdbBtn
+              color="white"
+              rounded="true"
+              class="z-depth-1a waves-light rounded-pill"
+              mdbWavesEffect
+            >
+              <mdb-icon fab fab icon="github" class="blue-text"></mdb-icon>
+            </button>
+          </div>
+        </mdb-card-body>
+        <!--Footer-->
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small grey-text d-flex justify-content-end">
+            Chưa có Acc thì
+            <a href="/register" class="blue-text ml-1"> Đăng ký ngay lào!</a>
+          </p>
+        </div>
+      </mdb-card>
+    </section>
+  </div>
+</div>
