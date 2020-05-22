@@ -16,11 +16,13 @@ export class UserResolver implements Resolve<User> {
       this.userService.getCurrentUser().then(
         (res) => {
           if (res.providerData[0].providerId == 'password') {
+            user.uid = res.uid;
             user.displayName = res.displayName;
             user.photoURL = res.photoURL;
             user.provider = res.providerData[0].providerId;
             return resolve(user);
           } else {
+            user.uid = res.uid;
             user.photoURL = res.photoURL;
             user.displayName = res.displayName;
             user.provider = res.providerData[0].providerId;

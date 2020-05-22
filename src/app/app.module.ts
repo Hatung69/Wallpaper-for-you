@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MaterialModule } from './material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 // The libs Firebase
 import * as firebase from 'firebase/app';
 import { AngularFireModule } from '@angular/fire';
@@ -23,6 +24,9 @@ import { MainComponent } from './commons/main/main.component';
 import { HomeComponent } from './home/home.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AvatarDialogComponent } from './auth/profile/avatar-dialog/avatar-dialog.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
+import { ImageDetailComponent } from './image-detail/image-detail.component';
+import { ImagesCategoryComponent } from './images-category/images-category.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -38,6 +42,9 @@ firebase.initializeApp(environment.firebaseConfig);
     HomeComponent,
     NotfoundComponent,
     AvatarDialogComponent,
+    UploadImageComponent,
+    ImageDetailComponent,
+    ImagesCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +58,7 @@ firebase.initializeApp(environment.firebaseConfig);
     MDBBootstrapModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

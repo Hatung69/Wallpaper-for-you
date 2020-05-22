@@ -1,58 +1,386 @@
-<header>
-  <mdb-navbar
-    SideClass="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar elegant-color-dark"
-  >
-    <!-- Navbar brand -->
-    <mdb-navbar-brand
-      ><a class="navbar-brand font-brand" href="#"
-        ><strong class="text-success">W</strong>allpapers for you</a
-      >
-    </mdb-navbar-brand>
+<!--Navbar-->
+<mdb-navbar
+  SideClass="navbar fixed-top scrolling-navbar navbar-expand-lg navbar-dark unique-color-dark"
+  [containerInside]="false"
+>
+  <!-- Navbar brand -->
+  <mdb-navbar-brand>
+    <a class="navbar-brand font-weight-bold" [routerLink]="['/home']"
+      ><span class="text-success">W</span>FU</a
+    >
 
-    <!-- Collapsible content -->
-    <links>
-      <!-- Links -->
-      <ul class="navbar-nav ml-auto">
-        <!-- Search form -->
-        <form class="form-inline input-group-sm mr-1">
-          <input
-            class="form-control rounded-pill"
-            type="text"
-            placeholder="Tìm tên hoặc thể loại..."
-            mdbInput
-          />
-        </form>
-        <!-- Button auth -->
-        <li class="nav-item mt-1">
-          <a
-            href="/login"
-            class="nav-link waves-light rounded-pill text-success font-weight-bold"
-            mdbWavesEffect
-            ><mdb-icon fas icon="sign-in-alt"></mdb-icon>Đăng nhập</a
-          >
-        </li>
-        <li class="nav-item mt-1">
-          <a
-            color="danger"
-            href="/register"
-            class="nav-link waves-light rounded-pill text-info font-weight-bold"
-            mdbWavesEffect
-            ><mdb-icon fas icon="pen"></mdb-icon>Đăng ký</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            mdbBtn
-            color="danger"
-            href="/profile"
-            class="nav-link waves-light font-weight-bold rounded-pill btn-sm"
-            mdbWavesEffect
-            ><mdb-icon fas icon="user"></mdb-icon> Tài khoản &nbsp;</a
-          >
+    <div class="btn-group">
+      <a
+        class="nav-link waves-light rounded-lg light-green accent-4 text-dark dropdown-toggle mr-2 font-weight-bold"
+        data-toggle="dropdown"
+        mdbWavesEffect
+      >
+        <mdb-icon fas icon="paw"></mdb-icon> Thể loại
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu scrollable-menu" role="menu">
+        <li *ngFor="let item of listCategory">
+          <a class="dropdown-item" [href]="['images-category/' + item]">{{
+            item
+          }}</a>
         </li>
       </ul>
-      <!-- Links -->
-    </links>
-    <!-- Collapsible content -->
-  </mdb-navbar>
-</header>
+    </div>
+  </mdb-navbar-brand>
+  <!-- Collapsible content -->
+  <links>
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a
+          [routerLink]="['home']"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="house-damage"></mdb-icon>Trang chủ</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          (click)="frame.show()"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="info"></mdb-icon>Giới thiệu</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          (click)="frame3.show()"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="pager"></mdb-icon>Liên lạc</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          (click)="frame2.show()"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="bug"></mdb-icon>Góp ý & Báo lỗi</a
+        >
+      </li>
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li *ngIf="!(user | async)?.uid" class="nav-item">
+        <a
+          [routerLink]="['login']"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="sign-in-alt"></mdb-icon> Đăng nhập</a
+        >
+      </li>
+      <li *ngIf="!(user | async)?.uid" class="nav-item active">
+        <a
+          [routerLink]="['register']"
+          class="nav-link waves-light rounded-lg"
+          mdbWavesEffect
+          ><mdb-icon fas icon="pencil-alt"></mdb-icon>Đăng ký</a
+        >
+      </li>
+      <li *ngIf="(user | async)?.uid" class="nav-item dropdown" dropdown>
+        <a
+          *ngIf="!(user | async)?.photoURL"
+          dropdownToggle
+          mdbWavesEffect
+          type="button"
+          class="nav-link dropdown-toggle waves-light rounded-lg"
+          mdbWavesEffect
+        >
+          <img
+            src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+            alt=""
+            class="img-fluid rounded-circle z-depth-1"
+            width="30"
+            height="30"
+          />
+          Your name</a
+        >
+        <a
+          *ngIf="(user | async)?.photoURL"
+          dropdownToggle
+          mdbWavesEffect
+          type="button"
+          class="nav-link dropdown-toggle waves-light rounded-lg"
+          mdbWavesEffect
+        >
+          <img
+            [src]="(user | async)?.photoURL"
+            alt=""
+            class="img-fluid rounded-circle z-depth-1"
+            width="30"
+            height="30"
+          />
+          {{ (user | async)?.displayName }}</a
+        >
+
+        <div
+          *dropdownMenu
+          class="dropdown-menu dropdown-menu-right dropdown"
+          role="menu"
+        >
+          <a
+            [routerLink]="['login']"
+            class="dropdown-item waves-light"
+            mdbWavesEffect
+            href="#"
+            ><mdb-icon class="text-primary" fas icon="user"></mdb-icon> Tài
+            khoản</a
+          >
+          <a
+            [routerLink]="['login']"
+            class="dropdown-item waves-light"
+            mdbWavesEffect
+            href="#"
+            ><mdb-icon class="green-text" fas icon="upload"></mdb-icon> Tải ảnh
+            lên</a
+          >
+          <a (click)="logOut()" class="dropdown-item waves-light" mdbWavesEffect
+            ><mdb-icon class="red-text" fas icon="sign-out-alt"></mdb-icon> Đăng
+            xuất</a
+          >
+        </div>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+</mdb-navbar>
+<!--/.Navbar-->
+
+<!-- Modal -->
+<!-- Modal info web  -->
+
+<!-- BUTTON INFO -->
+<div
+  mdbModal
+  #frame="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header blue darken-1">
+        <p class="heading lead">Giới thiệu về trang web</p>
+
+        <a class="close" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </a>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <mdb-icon
+            fas
+            icon="jedi"
+            size="4x"
+            class="mb-3 animated rotateIn"
+          ></mdb-icon>
+          <div class="text-dark">
+            <h3 class="font-weight-bold text-center">
+              <span class="text-success">W</span>allpapers for you
+            </h3>
+            <p>
+              Là trang Web cho phép mọi người có thể tải hình ảnh của bản thân
+              lên để chia sẻ và lưu trữ lại trên kho lưu trữ trực tuyến hoàn
+              toàn miễn phí, bên cạnh đó người dùng có thể tải về hình ảnh mà họ
+              thích để sử dụng ở mọi nơi. ( Dính bản quyền thì tự chịu :v )
+            </p>
+            <p>
+              Trang Web được làm ra để phục vụ cá nhân thôi. Vì vậy mọi hình ảnh
+              bản quyền thì em không biết gì đâu, đừng bắt em huhu :(((
+            </p>
+            <img
+              src="/assets/img/intro.jpg"
+              class="rounded mx-auto d-block"
+              width="300px"
+              alt="Image intro"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal report  -->
+<div
+  mdbModal
+  #frame2="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header red accent-4">
+        <p class="heading lead">Đóng góp ý kiến và báo lỗi</p>
+
+        <a class="close" aria-label="Close" (click)="frame2.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </a>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <mdb-icon
+            fas
+            icon="spider"
+            size="4x"
+            class="mb-3 animated rotateIn"
+          ></mdb-icon>
+          <div class="text-dark">
+            <!--Form with header-->
+            <form action="mail.php" method="post">
+              <div class="">
+                <div class="card-body p-3">
+                  <!--Body-->
+                  <div class="form-group">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-user text-danger"></i>
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Tên của bạn là?"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-envelope text-danger"></i>
+                        </div>
+                      </div>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="nombre"
+                        name="email"
+                        placeholder="Email của bạn"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fa fa-comment text-danger"></i>
+                        </div>
+                      </div>
+                      <textarea
+                        class="form-control"
+                        placeholder="Nội dung"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <input
+                      type="submit"
+                      value="Gửi"
+                      class="btn btn-danger btn-block rounded-0 py-2"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!--Form with header-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Contact  -->
+<div
+  mdbModal
+  #frame3="mdbModal"
+  class="modal fade top"
+  id="frameModalTop"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-notify modal-warning text-dark"
+    role="document"
+  >
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header yellow darken-2">
+        <p class="heading lead">Liên lạc với tôi</p>
+
+        <a class="close" aria-label="Close" (click)="frame3.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </a>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+          <div class="text-dark">
+            <!--Grid column-->
+            <div class="text-center">
+              <ul class="list-unstyled">
+                <li>
+                  <i
+                    class="fas fa-map-marker-alt fa-2x animated fadeInLeft"
+                  ></i>
+                  <h5>
+                    Địa chỉ: Nằm trong khoảng từ 0° tại kinh tuyến gốc tới +180°
+                    về phía đông và −180° về phía tây
+                  </h5>
+                </li>
+
+                <li>
+                  <i class="fas fa-phone mt-4 fa-2x animated fadeIn"></i>
+                  <h5>
+                    Điện thoại: + 09 47044 6996
+                  </h5>
+                </li>
+
+                <li>
+                  <i
+                    class="fas fa-envelope mt-4 fa-2x animated fadeInRight"
+                  ></i>
+                  <h5>Gmail: keodeo19@gmail.com</h5>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

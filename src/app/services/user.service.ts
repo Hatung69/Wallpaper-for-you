@@ -2,11 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  userExist: boolean = false;
+
+  public updateUserExist(boolean) {
+    this.userExist = boolean;
+  }
+
   constructor(public db: AngularFirestore, public afAuth: AngularFireAuth) {}
 
   getCurrentUser() {

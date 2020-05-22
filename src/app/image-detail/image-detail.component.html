@@ -1,0 +1,87 @@
+<div class="row mt-5 pt-5 pb-5" *ngFor="let image of imageDetail | async">
+  <div class="col-sm-7">
+    <div class="view overlay">
+      <img
+        id="imageResult"
+        [src]="image.imageUrl"
+        alt="Hình cần Upload"
+        style="cursor: pointer;"
+        class="img-fluid mx-auto d-block image-area"
+      />
+      <a>
+        <div
+          class="mask waves-effect waves-light rgba-white-slight"
+          mdbWavesEffect
+        ></div>
+      </a>
+    </div>
+  </div>
+  <div class="col-sm-5 mt-3">
+    <div>
+      <h2 class="text-uppercase font-weight-bold text-center">
+        Chi tiết hình ảnh
+      </h2>
+      <hr
+        class="unique-color-dark mb-4 mt-0 mx-auto"
+        style="width: 150px; height: 2px;"
+      />
+      <div>
+        <table id="customers">
+          <tr>
+            <td>
+              <mdb-icon size="2x" class="blue-text" fas icon="image"></mdb-icon>
+            </td>
+            <td class="font-weight-bold">Tên ảnh:</td>
+            <td>{{ image.imageName }}</td>
+          </tr>
+          <tr>
+            <td>
+              <mdb-icon size="2x" class="amber-text" fas icon="paw"></mdb-icon>
+            </td>
+            <td class="font-weight-bold">
+              Thể loại:
+            </td>
+            <td>{{ image.category }}</td>
+          </tr>
+          <tr>
+            <td>
+              <mdb-icon
+                size="2x"
+                class="green-text"
+                fas
+                icon="calendar-alt"
+              ></mdb-icon>
+            </td>
+            <td class="font-weight-bold">
+              Tải lên:
+            </td>
+            <td>{{ image.dateUpload }}</td>
+          </tr>
+          <tr>
+            <td>
+              <mdb-icon
+                size="2x"
+                class="pink-text"
+                fas
+                icon="pencil-alt"
+              ></mdb-icon>
+            </td>
+            <td class="font-weight-bold">
+              Mô tả:
+            </td>
+            <td>{{ image.description }}</td>
+          </tr>
+        </table>
+      </div>
+      <a
+        type="button"
+        class="waves-effect btn unique-color-dark text-success btn-block mt-2 font-weight-bold"
+        href="{{ image.imageUrl }}"
+        download
+        target="_blank"
+      >
+        Tải xuống
+      </a>
+    </div>
+  </div>
+</div>

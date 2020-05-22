@@ -1,0 +1,120 @@
+<div class="container pt-4">
+  <!-- Button choose img  -->
+
+  <!-- Form  -->
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <form
+        [formGroup]="uploadForm"
+        (submit)="onSubmit(uploadForm.value)"
+        class="pt-2"
+      >
+        <div>
+          <label
+            mdbBtn
+            class="btn-block waves-effect btn unique-color-dark text-success"
+            mdbWavesEffect
+            for="files"
+            ><mdb-icon fas icon="file-upload"></mdb-icon>&nbsp; Chọn ảnh tải
+            lên</label
+          >
+          <input
+            #fileUploader
+            (change)="showPreview($event)"
+            formControlName="imageUrl"
+            type="file"
+            accept="image/*"
+            id="files"
+            style="visibility: hidden;"
+          />
+        </div>
+        <!-- Uploaded image area-->
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="image-area mb-2">
+              <img
+                (click)="fileUploader.click()"
+                id="imageResult"
+                [src]="imgSrc"
+                alt="Hình cần Upload"
+                style="cursor: pointer;"
+                class="img-fluid rounded shadow-sm mx-auto d-block"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Title -->
+        <div class="md-form">
+          <mdb-icon fas icon="image" class="prefix"></mdb-icon>
+          <input
+            formControlName="imageName"
+            type="text"
+            class="form-control"
+            mdbInput
+          />
+          <label class="font-weight-light">Tên ảnh *</label>
+          <small class="blue-text"
+            >Viết ít thôi nhé nàng, 30 ký tự trở lại nhé !</small
+          >
+        </div>
+        <!-- Category -->
+        <mdb-icon fas icon="paw" class="prefix" size="2x"></mdb-icon>
+        <mat-form-field class="ml-3" required>
+          <mat-label>Thể loại cho tấm ảnh* &nbsp;&nbsp;</mat-label>
+          <mat-select formControlName="category">
+            <mat-option
+              *ngFor="let category of listCategory"
+              [value]="category"
+            >
+              {{ category }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Description  -->
+        <div class="md-form pb-2">
+          <mdb-icon fas icon="pencil-alt" class="prefix"></mdb-icon>
+          <input
+            formControlName="description"
+            type="text"
+            id="form8"
+            class="md-textarea form-control"
+            mdbInput
+          />
+          <label for="form8">Mô tả *</label>
+          <small class="blue-text"
+            >Viết ít thôi nhé nàng, 30 ký tự trở lại nhé !</small
+          >
+        </div>
+
+        <!-- button -->
+        <button
+          [hidden]="isLoading"
+          [disabled]="uploadForm.invalid"
+          mdbBtn
+          block="true"
+          type="submit"
+          gradient="aqua"
+          rounded="true"
+          class="rounded-pill btn-lg mb-1"
+          mdbWavesEffect
+        >
+          <mdb-icon fas icon="upload"></mdb-icon> Tải lên
+        </button>
+        <button
+          [hidden]="!isLoading"
+          disabled
+          mdbBtn
+          block="true"
+          type="button"
+          gradient="purple"
+          rounded="true"
+          class="rounded-pill btn-lg mb-1"
+          mdbWavesEffect
+        >
+          <mdb-icon fas icon="upload"></mdb-icon> Đang tải lên...
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- Default form login -->
+</div>

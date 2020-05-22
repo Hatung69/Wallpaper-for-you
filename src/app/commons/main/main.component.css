@@ -1,6 +1,6 @@
 .bg {
   /* The image used */
-  background-image: url("https://images2.alphacoders.com/692/692913.jpg");
+  background-image: url("https://image.shutterstock.com/image-photo/toucan-sitting-on-branch-forest-600w-1249664152.jpg");
 
   /* Half height */
   height: 50%;
@@ -9,4 +9,16 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.form-control-borderless {
+  border: none;
+}
+
+.form-control-borderless:hover,
+.form-control-borderless:active,
+.form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }

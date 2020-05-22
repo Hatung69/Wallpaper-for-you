@@ -1,3 +1,6 @@
+.text-fuck {
+  font-family: "Pacifico", cursive;
+}
 * {
   box-sizing: border-box;
 }
@@ -22,36 +25,26 @@ body {
 
 /* Create four equal columns that sits next to each other */
 .column {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
-  max-width: 25%;
-  padding: 0 5px;
+  -ms-flex: 33%; /* IE10 */
+  flex: 33%;
+  max-width: 33%;
+  padding: 1px;
 }
 
 .column img {
-  margin-top: 8px;
   vertical-align: middle;
   width: 100%;
-}
-hr {
-  height: 4px;
-  margin-left: 15px;
-  margin-bottom: -3px;
-}
-.hr-primary {
-  background-image: -webkit-linear-gradient(
-    left,
-    rgba(66, 133, 244, 0.8),
-    rgba(66, 133, 244, 0.6),
-    rgba(0, 0, 0, 0)
-  );
 }
 
 .alligator-turtle {
   object-fit: cover;
   object-position: 0 0;
 
-  height: 200px;
+  height: 260px;
+}
+
+.text-fuck {
+  font-family: "Pacifico", cursive;
 }
 
 /* Responsive layout - makes a two column-layout instead of four columns */
@@ -71,3 +64,5 @@ hr {
     max-width: 100%;
   }
 }
+
+/* //Pagination */

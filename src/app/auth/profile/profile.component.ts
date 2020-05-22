@@ -1,13 +1,14 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { User } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AvatarDialogComponent } from './avatar-dialog/avatar-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,20 +16,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  imageListOfUser: Observable<any[]>;
+  config: any;
+  lenghImages: number;
+
   user: User = new User();
   profileForm: FormGroup;
-
-  // valueUserTemp = {
-  //   displayNameTemp: '',
-  //   photoURLTemp:
-  //     'https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg',
-  // };
 
   constructor(
     public userService: UserService,
     public authService: AuthService,
+    private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private location: Location,
+    private router: Router,
     private fb: FormBuilder,
     public dialog: MatDialog
   ) {}
@@ -36,12 +36,29 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe((routeData) => {
       let data = routeData['data'];
-      console.log(data);
       if (data) {
         this.user = data;
         this.createForm(this.user.displayName);
       }
     });
+
+    this.imageListOfUser = this.firebaseService.getImageOfUser(this.user.uid);
+    //Get length Images
+    this.imageListOfUser.subscribe((data) => {
+      this.lenghImages = data.length;
+    });
+
+    // Config pagination
+    this.config = {
+      id: 'custom',
+      itemsPerPage: 12,
+      currentPage: 1,
+      totalItems: this.lenghImages,
+    };
+  }
+
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
 
   createForm(name) {
@@ -66,21 +83,15 @@ export class ProfileComponent implements OnInit {
   save(value) {
     this.userService.updateCurrentUser(value).then(
       (res) => {
-        console.log(res);
-        Swal.fire('Ok', 'Cập hình profile thành công', 'success');
+        Swal.fire('Ok baby', 'Ta đã cập nhật Rồ phai của nàng', 'success');
       },
       (err) => console.log(err)
     );
   }
 
-  logout() {
-    this.authService.doLogout().then(
-      (res) => {
-        this.location.back();
-      },
-      (error) => {
-        console.log('Logout error', error);
-      }
-    );
+  logOut() {
+    this.authService.logOut().then((onResolve) => {
+      this.router.navigateByUrl('home');
+    });
   }
 }

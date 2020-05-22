@@ -1,78 +1,25 @@
-<br />
-<br />
-<br />
-<br />
-<!-- <nav class="navbar navbar-default navbar-static-top navbar-inverse mt5">
-  <div class="container">
-    <a
-      (click)="logout()"
-      class="navbar-text navbar-right navbar-link btn-primary"
-      >Logout</a
-    >
-  </div>
-</nav>
-<h1 class="header">Logged User Page</h1>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <div class="card" style="width: 20rem;">
-      <img
-        class="card-img-top image"
-        [src]="user.photoURL"
-        *ngIf="user.photoURL"
-        alt="User image"
-      />
-      <img
-        class="card-img-top image"
-        [src]="user.photoURL"
-        *ngIf="!user.photoURL"
-        alt="User image"
-      />
-      <div class="card-body">
-        <h4 class="card-title">{{ user.displayName }}</h4>
-        <p class="card-text">
-          This is an example of Social Authentication using Firebase in an
-          Angular 7 web app.
-        </p>
-      </div>
-      <div class="card-body">
-        <form [formGroup]="profileForm">
-          <div class="form-group">
-            <label>{{ user.displayName }}</label>
-            <input
-              type="text"
-              formControlName="name"
-              class="form-control"
-              required
-            />
-          </div>
-        </form>
-        <a (click)="save(profileForm.value)" class="btn btn-primary">Save</a>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div class="row mb-5">
-  <div class="col-md-3">
+<div class="row mb-5 mt-5 pt-5">
+  <div class="col-sm-3 pb-3">
     <!-- Card -->
-    <mdb-card class="animated fadeInLeft">
+    <mdb-card class="animated bounceInLeft z-depth-2">
       <div class="view rgba-white-slight waves-light" mdbWavesEffect>
         <!-- Card img -->
-        <mdb-card-img
-          [src]="user.photoURL"
-          alt="Chọn ảnh đi công chúa của ta"
-        ></mdb-card-img>
-        <a (click)="openDialog()">
-          <div class="mask"></div>
-        </a>
+        <div>
+          <mdb-card-img
+            [src]="user.photoURL"
+            alt="Chọn ảnh đi công chúa của ta"
+          ></mdb-card-img>
+          <a (click)="openDialog()">
+            <div class="mask"></div>
+          </a>
+        </div>
       </div>
       <button
         (click)="openDialog()"
         mdbBtn
         type="button"
-        color="indigo"
         mdbWavesEffect
-        class="btn btn-sm btn-block"
+        class="btn-sm btn-block light-green accent-4"
       >
         Chọn ảnh
       </button>
@@ -92,32 +39,127 @@
             <label for="form2">Tên công chúa</label>
           </div>
         </mdb-card-title>
-
         <!--Text-->
         <mdb-card-text>
-          Mơ ước mong sao, có chàng hoàng tử đến với bên
+          <small> Xin chào công chúa của ta...</small>
         </mdb-card-text>
+        <p class="text-center pink-text">
+          Loại account:
+          <span class="font-weight-bold">{{ user.provider | uppercase }}</span>
+        </p>
 
         <div class="text-center">
-          <a (click)="save(user)" mdbBtn color="deep-purple" mdbWavesEffect
+          <a
+            (click)="save(user)"
+            mdbBtn
+            class="waves-effect btn unique-color-dark text-success"
+            mdbWavesEffect
             >Lưu lại</a
           >
-          <a
-            (click)="logout()"
-            mdbBtn
-            class="btn-sm btn-outline-danger"
-            mdbWavesEffect
-            >Đăng xuất</a
-          >
+          <a (click)="logOut()" mat-mini-fab color="warn" title="Đăng xuất">
+            <mdb-icon fas icon="sign-out-alt"></mdb-icon>
+          </a>
         </div>
       </mdb-card-body>
     </mdb-card>
     <!-- Card -->
   </div>
-  <div class="col-md-6">
+  <div class="col-sm-9">
     <mat-tab-group>
-      <mat-tab label="Tải ảnh lên"> Content 1 </mat-tab>
-      <mat-tab label="Ảnh của tui"> Content 2 </mat-tab>
+      <mat-tab label="Tải ảnh lên">
+        <app-upload-image></app-upload-image>
+      </mat-tab>
+      <mat-tab label="Ảnh của nàng đây">
+        <div class="container">
+          <div class="row">
+            <div
+              class="column"
+              *ngFor="let img of imageListOfUser | async | paginate: config"
+            >
+              <div class="view overlay zoom animated fadeIn">
+                <img
+                  [src]="img.imageUrl"
+                  class="img-fluid img-thumbnail alligator-turtle"
+                  alt="zoom"
+                />
+                <div class="mask flex-center">
+                  <a
+                    [routerLink]="['/image-detail/' + img.imageID]"
+                    mdbBtn
+                    mdbWavesEffect
+                    class="rounded-pill btn-sm mr-1 waves-effect waves-light light-green accent-4 text-dark"
+                  >
+                    Chi tiết
+                  </a>
+                  <a
+                    target="_blank"
+                    [href]="img.imageUrl"
+                    mat-mini-fab
+                    color="warn"
+                    download
+                  >
+                    <mdb-icon fas icon="cloud-download-alt"></mdb-icon>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pb-3">
+          <hr
+            class="unique-color-dark mb-4 mx-auto"
+            style="width: 300px; height: 5px;"
+          />
+          <pagination-template
+            [maxSize]="5"
+            #p="paginationApi"
+            [id]="config.id"
+            (pageChange)="pageChanged($event)"
+          >
+            <nav aria-label="Page navigation ">
+              <ul class="pagination pg-dark justify-content-center">
+                <li
+                  [class.disabled]="p.isFirstPage()"
+                  class="page-item disabled"
+                >
+                  <a mat-icon-button (click)="p.previous()" class="rounded-pill"
+                    ><mdb-icon size="2x" fas icon="caret-left"></mdb-icon>
+                  </a>
+                </li>
+
+                <li
+                  *ngFor="let page of p.pages"
+                  class="page-item"
+                  [ngClass]="{ active: p.getCurrent() === page.value }"
+                >
+                  <a
+                    (click)="p.setCurrent(page.value)"
+                    class="page-link text-success font-weight-bold"
+                    mdbWavesEffect
+                    >{{ page.label }}</a
+                  >
+                </li>
+
+                <li [class.disabled]="p.isLastPage()" class="page-item">
+                  <a mat-icon-button (click)="p.next()" class="rounded-pill">
+                    <mdb-icon size="2x" fas icon="caret-right"></mdb-icon>
+                  </a>
+                </li>
+                <li [class.disabled]="p.isLastPage()" class="page-item">
+                  <a
+                    mat-icon-button
+                    color="primary"
+                    (click)="p.setCurrent(p.getLastPage())"
+                    class="rounded-pill"
+                  >
+                    <mdb-icon size="2x" far icon="hand-point-right"></mdb-icon>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </pagination-template>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>

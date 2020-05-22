@@ -1,53 +1,49 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { BehaviorSubject } from 'rxjs';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public afAuth: AngularFireAuth) {}
+  private user: Observable<firebase.User>;
 
-  doLogin(value) {
-    return new Promise<any>((resolve, reject) => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(value.email, value.password)
-        .then(
-          (res) => {
-            resolve(res);
-          },
-          (err) => reject(err)
-        );
-    });
+  constructor(public afAuth: AngularFireAuth) {
+    this.user = afAuth.authState;
   }
 
-  doRegister(value) {
-    return new Promise<any>((resolve, reject) => {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(value.email, value.password)
-        .then(
-          (res) => {
-            resolve(res);
-            // this.doLogout();
-          },
-          (err) => reject(err)
-        );
-    });
+  authUser() {
+    return this.user;
   }
 
-  doLogout() {
-    return new Promise((resolve, reject) => {
-      if (firebase.auth().currentUser) {
-        this.afAuth.signOut();
-        resolve();
-      } else {
-        reject();
-      }
-    });
+  doLogin(user) {
+    return this.afAuth.signInWithEmailAndPassword(user.email, user.password);
+  }
+
+  doGoogleLogin() {
+    return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  doFacebookLogin() {
+    return this.afAuth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider()
+    );
+  }
+  doGitHubLogin() {
+    return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider());
+  }
+
+  doRegister(user) {
+    return this.afAuth.createUserWithEmailAndPassword(
+      user.email,
+      user.password
+    );
+  }
+
+  logOut() {
+    return this.afAuth.signOut();
   }
 }

@@ -1,11 +1,8 @@
-import { User } from './../../models/user.model';
-import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -32,19 +28,55 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(value) {
-    this.authService.doLogin(value).then(
-      (res) => {
+  logIn(userValue) {
+    this.authService
+      .doLogin(userValue)
+      .then((resolve) => {
         this.router.navigate(['/profile']);
-      },
-      (err) => {
-        console.log(err);
+      })
+      .catch((err) => {
         Swal.fire(
-          'Lỗi cực kỳ nghiêm trọng',
-          'Sai email hay pass gì rồi, nhập cho chuẩn vào',
+          'Oh shit',
+          'Nàng nhập tầm bậy gì rồi? Xem lại đi, thật thất vọng !',
           'error'
         );
-      }
-    );
+        console.log(err);
+      });
+  }
+
+  loginGoogle() {
+    this.authService
+      .doGoogleLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'Google bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
+  }
+
+  loginFacebook() {
+    this.authService
+      .doFacebookLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'Facebook bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
+  }
+
+  loginGitHub() {
+    this.authService
+      .doGitHubLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'GitHub bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
   }
 }

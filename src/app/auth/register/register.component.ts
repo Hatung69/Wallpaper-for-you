@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from './must-match.component';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +13,17 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.createRegisterForm();
+    this.createAndRestForm();
   }
 
-  createRegisterForm() {
+  createAndRestForm() {
     this.registerForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -32,29 +37,69 @@ export class RegisterComponent implements OnInit {
   }
 
   isLoading = false;
-  register(value) {
+  register(userValue) {
     this.isLoading = true;
-    this.authService.doRegister(value).then(
-      (res) => {
-        Swal.fire('Chúc mừng năm mới', 'Đăng ký thành công !', 'success');
+    this.authService
+      .doRegister(userValue)
+      .then((res) => {
         this.isLoading = false;
-      },
-      (err) => {
-        const errorCode = err.code;
-        if (errorCode === 'auth/email-already-in-use') {
+        Swal.fire(
+          'Chúc mừng nàng',
+          'Nàng đã đăng ký thành công ! Ta cũng đã đăng nhập giúp nàng rồi đó, tận hưởng đi',
+          'success'
+        );
+        this.router.navigateByUrl('profile');
+      })
+      .catch((err) => {
+        if (err.code === 'auth/email-already-in-use') {
           Swal.fire(
-            'Chậc',
-            'Mail này người ta xài rồi, lấy mail khác đi',
+            'Oh fuck nàng',
+            'Mail người ta xài rồi, lấy mail khác đi công chúa của ta ơi !',
             'error'
           );
           this.isLoading = false;
           return;
-        } else if (errorCode === 'auth/invalid-email') {
-          Swal.fire('Chán lắm', 'Nhập cái mail cho nó chuẩn dùm con', 'error');
+        } else if (err.code === 'auth/invalid-email') {
+          Swal.fire('Nàng ơi', 'Nhập cái mail cho nó chuẩn dùm con', 'error');
           this.isLoading = false;
           return;
         }
-      }
-    );
+      });
+  }
+
+  loginGoogle() {
+    this.authService
+      .doGoogleLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'Google bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
+  }
+
+  loginFacebook() {
+    this.authService
+      .doFacebookLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'Facebook bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
+  }
+
+  loginGitHub() {
+    this.authService
+      .doGitHubLogin()
+      .then((res) => {
+        this.router.navigate(['/profile']);
+      })
+      .catch((err) => {
+        Swal.fire('Huhmmm', 'GitHub bị si đa rồi chả hiểu sao !', 'error');
+        console.log(err);
+      });
   }
 }

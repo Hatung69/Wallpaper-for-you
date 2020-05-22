@@ -1,11 +1,13 @@
-<app-main (messageEvent)="receiveMessage($event)"></app-main>
 <br />
-<h1 class="text-center text-fuck">
-  Những tấm hình xinh xắn
+<h1 class="text-center text-fuck mt-5 pt-4">
+  <span>Thể loại: </span> <span class="text-success">{{ paramCategory }}</span>
   <hr class="light-green accent-4 mb-4" style="width: 350px; height: 5px;" />
 </h1>
 <div class="row">
-  <div class="column" *ngFor="let img of images | async | paginate: config">
+  <div
+    class="column"
+    *ngFor="let img of imagesCategory | async | paginate: config"
+  >
     <div class="view overlay zoom animated zoomIn">
       <img
         [src]="img.imageUrl"
@@ -34,7 +36,6 @@
     </div>
   </div>
 </div>
-
 <div class="pb-3">
   <hr
     class="unique-color-dark mb-4 mx-auto"
@@ -86,10 +87,3 @@
     </nav>
   </pagination-template>
 </div>
-<blockquote class="blockquote bq-success">
-  <p class="bq-title">Các công chúa chú ý nhé !</p>
-  <p>
-    Tải ảnh nét nét vào, độ phân giải 2k 4k 8k 500k gì đó....cho đẹp thôi, thích
-    thì tải không thích thì tải. Cám ơn đã ghé thăm trang Web !
-  </p>
-</blockquote>

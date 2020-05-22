@@ -1,3 +1,5 @@
+import { ImagesCategoryComponent } from './images-category/images-category.component';
+import { ImageDetailComponent } from './image-detail/image-detail.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { UserResolver } from './auth/profile/user.resolver';
 import { HomeComponent } from './home/home.component';
@@ -21,6 +23,8 @@ const routes: Routes = [
     component: ProfileComponent,
     resolve: { data: UserResolver },
   },
+  { path: 'image-detail/:imageID', component: ImageDetailComponent },
+  { path: 'images-category/:category', component: ImagesCategoryComponent },
   { path: '404', component: NotfoundComponent },
   { path: '**', component: NotfoundComponent },
 ];
