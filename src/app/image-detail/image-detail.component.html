@@ -1,9 +1,11 @@
-<div class="row mt-5 pt-5 pb-5" *ngFor="let image of imageDetail | async">
-  <div class="col-sm-7">
+<br />
+<br />
+<div class="row mt-5 pb-5">
+  <div class="col-lg-7">
     <div class="view overlay">
       <img
         id="imageResult"
-        [src]="image.imageUrl"
+        [src]="(imageDetail | async)?.imageUrl"
         alt="Hình cần Upload"
         style="cursor: pointer;"
         class="img-fluid mx-auto d-block image-area"
@@ -16,15 +18,15 @@
       </a>
     </div>
   </div>
-  <div class="col-sm-5 mt-3">
+  <div class="col-lg-5 mt-3">
     <div>
-      <h2 class="text-uppercase font-weight-bold text-center">
-        Chi tiết hình ảnh
-      </h2>
-      <hr
-        class="unique-color-dark mb-4 mt-0 mx-auto"
-        style="width: 150px; height: 2px;"
-      />
+      <h1 class="text-center text-fuck">
+        Chi tiết <span class="text-success"> hình ảnh</span>
+        <hr
+          class="light-green accent-4 mb-4"
+          style="width: 200px; height: 2px;"
+        />
+      </h1>
       <div>
         <table id="customers">
           <tr>
@@ -32,7 +34,9 @@
               <mdb-icon size="2x" class="blue-text" fas icon="image"></mdb-icon>
             </td>
             <td class="font-weight-bold">Tên ảnh:</td>
-            <td>{{ image.imageName }}</td>
+            <td class="font-weight-bold">
+              {{ (imageDetail | async)?.imageName }}
+            </td>
           </tr>
           <tr>
             <td>
@@ -41,7 +45,9 @@
             <td class="font-weight-bold">
               Thể loại:
             </td>
-            <td>{{ image.category }}</td>
+            <td class="font-weight-bold">
+              {{ (imageDetail | async)?.category }}
+            </td>
           </tr>
           <tr>
             <td>
@@ -55,7 +61,9 @@
             <td class="font-weight-bold">
               Tải lên:
             </td>
-            <td>{{ image.dateUpload }}</td>
+            <td class="font-weight-bold">
+              {{ (imageDetail | async)?.dateUpload }}
+            </td>
           </tr>
           <tr>
             <td>
@@ -69,14 +77,15 @@
             <td class="font-weight-bold">
               Mô tả:
             </td>
-            <td>{{ image.description }}</td>
+            <td class="font-weight-bold">
+              {{ (imageDetail | async)?.description }}
+            </td>
           </tr>
         </table>
       </div>
       <a
-        type="button"
+        [href]="(imageDetail | async)?.imageUrl"
         class="waves-effect btn unique-color-dark text-success btn-block mt-2 font-weight-bold"
-        href="{{ image.imageUrl }}"
         download
         target="_blank"
       >
@@ -85,3 +94,12 @@
     </div>
   </div>
 </div>
+<blockquote class="blockquote bq-success">
+  <p class="bq-title">Phân biệt PPI và DPI</p>
+  <p>
+    Tuy cả hai đều cùng chỉ mật độ điểm ảnh trên mỗi inch của tấm ảnh nhưng PPI
+    thường dùng cho ảnh hiển thị trên màn hình còn DPI dùng trong ảnh in ấn. PPI
+    cho biết độ lớn của ảnh khi hiển thị trên màn hình, DPI lại cho biết độ lớn
+    của bức ảnh mà bạn in ra.
+  </p>
+</blockquote>

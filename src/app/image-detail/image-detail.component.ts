@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./image-detail.component.css'],
 })
 export class ImageDetailComponent implements OnInit {
-  imageDetail: Observable<any[]>;
+  imageDetail: Observable<any>;
   paramObjID;
 
   constructor(
@@ -18,9 +18,14 @@ export class ImageDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.paramObjID = this.route.snapshot.params['imageID'];
-    this.imageDetail = this.firebaseService.getImageDetailByImageID(
-      this.paramObjID
-    );
+    this.paramObjID = this.route.snapshot.params['objID'];
+
+    this.imageDetail = this.firebaseService
+      .getImageDetailByObjectID(this.paramObjID)
+      .valueChanges();
+
+    setTimeout(() => {
+      this.imageDetail.subscribe((data) => console.log(data));
+    }, 1000);
   }
 }

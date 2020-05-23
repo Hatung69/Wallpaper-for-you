@@ -13,15 +13,20 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class FirebaseService {
-  imageList: AngularFireList<any[]>;
-  imageListOfUser: AngularFireList<any[]>;
+  private imageFL: AngularFireList<any>;
+  public images: Observable<any[]>; // List image
+  private imagesLatestFL: AngularFireList<any>;
+  public imagesLatest: Observable<any[]>; // List image
+
+  private userImagesFL: AngularFireList<any[]>;
+  public userImages: Observable<any[]>; // List image user
+  private imagesCategoryFL: AngularFireList<any[]>;
+  public imagesCategory: Observable<any[]>; // List image user
 
   constructor(
     public db: AngularFirestore,
     private firebase: AngularFireDatabase
-  ) {
-    // this.removeImage();
-  }
+  ) {}
 
   getAvatars() {
     return this.db.collection('avatar').valueChanges();
@@ -31,63 +36,76 @@ export class FirebaseService {
     this.firebase.list('images').push(image);
   }
 
-  getImages(): Observable<any[]> {
-    return this.firebase
-      .list('images')
+  loadDataImages() {
+    this.imageFL = this.firebase.list('/images');
+    this.images = this.imageFL
+      .snapshotChanges()
+      .pipe(
+        map((res) =>
+          res.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
+  }
+  loadDataImagesLatest() {
+    this.imagesLatestFL = this.firebase.list('/images');
+    this.imagesLatest = this.imagesLatestFL.snapshotChanges().pipe(
+      map((res) =>
+        res
+          .reverse()
+          .slice(0, 8)
+          .map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+  }
+
+  loadDataUserImages(uid: string) {
+    this.userImagesFL = this.firebase.list('images', (ref) =>
+      ref.orderByChild('uId').equalTo(uid)
+    );
+    this.userImages = this.userImagesFL
       .snapshotChanges()
       .pipe(
         map((action) =>
-          action.map((a) => {
-            const data = a.payload.val();
-            return data;
-          })
+          action.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
       );
   }
 
-  getImageDetailByImageID(imageId: string) {
-    return this.firebase
-      .list('images', (ref) => ref.orderByChild('imageID').equalTo(imageId))
-      .valueChanges();
+  getImageDetailByObjectID(objID: string) {
+    return this.firebase.object('images/' + objID);
   }
 
   getImagesByCategory(category: string) {
-    return this.firebase
-      .list('images', (ref) => ref.orderByChild('category').equalTo(category))
-      .valueChanges();
-  }
-
-  getImageOfUser(uid: string) {
-    return this.firebase
-      .list('images', (ref) => ref.orderByChild('uId').equalTo(uid))
-      .valueChanges();
-  }
-
-  searchByImgName(start, end): Observable<any[]> {
-    return this.firebase
-      .list('images', (ref) =>
-        ref
-          .orderByChild('keySearch')
-          .limitToFirst(10)
-          .startAt(start)
-          .endAt(end + '\uf8ff')
-      )
+    this.imagesCategoryFL = this.firebase.list('images', (ref) =>
+      ref.orderByChild('category').equalTo(category)
+    );
+    this.imagesCategory = this.imagesCategoryFL
       .snapshotChanges()
       .pipe(
         map((action) =>
-          action.map((a) => {
-            const data = a.payload.val();
-            return data;
-          })
+          action.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
       );
   }
 
-  // removeImage() {
-  //   return this.firebase
-  //     .list('images', (ref) =>
-  //       ref.orderByChild('uId').equalTo('hvt15901461367741076005076')
-  //     )
-  //     .remove();
-  // }
+  searchByImgName(start, end) {
+    this.imageFL = this.firebase.list('images', (ref) =>
+      ref
+        .orderByChild('keySearch')
+        .limitToFirst(10)
+        .startAt(start)
+        .endAt(end + '\uf8ff')
+    );
+    this.images = this.imageFL
+      .snapshotChanges()
+      .pipe(
+        map((action) =>
+          action.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        )
+      );
+  }
+
+  removeImageByKey(imgKey: string) {
+    this.firebase.object('images/' + imgKey).remove();
+  }
 }

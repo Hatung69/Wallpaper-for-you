@@ -5,7 +5,7 @@
 >
   <!-- Navbar brand -->
   <mdb-navbar-brand>
-    <a class="navbar-brand font-weight-bold" [routerLink]="['/home']"
+    <a class="navbar-brand font-weight-bold" href="/home" title="reset"
       ><span class="text-success">W</span>FU</a
     >
 
@@ -248,7 +248,7 @@
           ></mdb-icon>
           <div class="text-dark">
             <!--Form with header-->
-            <form action="mail.php" method="post">
+            <form [formGroup]="conatactForm" method="post">
               <div class="">
                 <div class="card-body p-3">
                   <!--Body-->
@@ -260,6 +260,7 @@
                         </div>
                       </div>
                       <input
+                        formControlName="name"
                         type="text"
                         class="form-control"
                         id="nombre"
@@ -278,6 +279,7 @@
                       </div>
                       <input
                         type="email"
+                        formControlName="email"
                         class="form-control"
                         id="nombre"
                         name="email"
@@ -295,6 +297,7 @@
                         </div>
                       </div>
                       <textarea
+                        formControlName="content"
                         class="form-control"
                         placeholder="Nội dung"
                         required
@@ -304,9 +307,11 @@
 
                   <div class="text-center">
                     <input
+                      (click)="thanks(conatactForm.value.name)"
+                      [disabled]="conatactForm.invalid"
                       type="submit"
                       value="Gửi"
-                      class="btn btn-danger btn-block rounded-0 py-2"
+                      class="btn btn-danger rounded-0 py-2"
                     />
                   </div>
                 </div>

@@ -8,15 +8,14 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  message: string = 'Hola Mundo!';
-  @Output() messageEvent = new EventEmitter<Observable<any[]>>();
+  @Output() imagesEvent = new EventEmitter<Observable<any[]>>();
 
   // sendMessage() {
   //   this.messageEvent.emit(this.message);
   // }
 
   imagesChild: Observable<any[]>;
-  searchValue: string = '';
+  searchValue: string;
 
   constructor(private firebaseService: FirebaseService) {}
 
@@ -26,18 +25,19 @@ export class MainComponent implements OnInit {
     if (searchValue && !searchValue.trim()) {
       return;
     } else if (searchValue === '') {
-      console.log('kỳ vậy');
-      this.imagesChild = this.firebaseService.getImages();
-      this.imagesChild.subscribe((data) => console.log(data));
-      this.messageEvent.emit(this.imagesChild);
+      this.imagesChild = this.firebaseService.images;
+      this.imagesEvent.emit(this.imagesChild);
       return;
     } else {
-      this.imagesChild = this.firebaseService.searchByImgName(
+      this.firebaseService.searchByImgName(
         searchValue.toLowerCase().trim(),
         searchValue.toLowerCase().trim()
       );
+      this.imagesChild = this.firebaseService.images;
       this.imagesChild.subscribe((data) => console.log(data));
-      this.messageEvent.emit(this.imagesChild);
+      this.imagesEvent.emit(this.imagesChild);
+      this.firebaseService.loadDataImages(); //tạm thời thì cứ reset khi sau khi xem chi tiết
+      this.imagesChild = this.firebaseService.images;
       return;
     }
   }

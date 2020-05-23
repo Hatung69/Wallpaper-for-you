@@ -23,9 +23,9 @@ export class ImagesCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramCategory = this.route.snapshot.params['category'];
-    this.imagesCategory = this.firebaseService.getImagesByCategory(
-      this.paramCategory
-    );
+
+    this.firebaseService.getImagesByCategory(this.paramCategory);
+    this.imagesCategory = this.firebaseService.imagesCategory;
 
     //Get length Images
     this.imagesCategory.subscribe((data) => {

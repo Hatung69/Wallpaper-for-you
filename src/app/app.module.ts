@@ -27,6 +27,7 @@ import { AvatarDialogComponent } from './auth/profile/avatar-dialog/avatar-dialo
 import { UploadImageComponent } from './upload-image/upload-image.component';
 import { ImageDetailComponent } from './image-detail/image-detail.component';
 import { ImagesCategoryComponent } from './images-category/images-category.component';
+import { ImagesLatestComponent } from './images-latest/images-latest.component';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -45,6 +46,7 @@ firebase.initializeApp(environment.firebaseConfig);
     UploadImageComponent,
     ImageDetailComponent,
     ImagesCategoryComponent,
+    ImagesLatestComponent,
   ],
   imports: [
     BrowserModule,

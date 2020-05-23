@@ -1,7 +1,7 @@
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  message: string;
-  receiveMessage($event) {
+  receiveImages($event) {
     this.images = $event;
+    this.config.currentPage = 1;
   }
+
   images: Observable<any[]>;
   //Paginations
   config: any;
@@ -24,10 +25,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.images = this.firebaseService.getImages();
+    this.firebaseService.loadDataImages();
+    this.images = this.firebaseService.images;
     //Get length Images
     this.images.subscribe((data) => {
       this.lenghImages = data.length;
+      console.log(data);
     });
     //Config pagination
     this.config = {
@@ -36,6 +39,13 @@ export class HomeComponent implements OnInit {
       currentPage: 1,
       totalItems: this.lenghImages,
     };
+
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
   }
 
   pageChanged(event) {

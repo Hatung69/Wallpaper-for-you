@@ -1,5 +1,5 @@
 <div class="row mb-5 mt-5 pt-5">
-  <div class="col-sm-3 pb-3">
+  <div class="col-lg-4 pb-3">
     <!-- Card -->
     <mdb-card class="animated bounceInLeft z-depth-2">
       <div class="view rgba-white-slight waves-light" mdbWavesEffect>
@@ -64,7 +64,7 @@
     </mdb-card>
     <!-- Card -->
   </div>
-  <div class="col-sm-9">
+  <div class="col-lg-8">
     <mat-tab-group>
       <mat-tab label="Tải ảnh lên">
         <app-upload-image></app-upload-image>
@@ -74,7 +74,7 @@
           <div class="row">
             <div
               class="column"
-              *ngFor="let img of imageListOfUser | async | paginate: config"
+              *ngFor="let img of userImages | async | paginate: config"
             >
               <div class="view overlay zoom animated fadeIn">
                 <img
@@ -84,12 +84,12 @@
                 />
                 <div class="mask flex-center">
                   <a
-                    [routerLink]="['/image-detail/' + img.imageID]"
-                    mdbBtn
-                    mdbWavesEffect
-                    class="rounded-pill btn-sm mr-1 waves-effect waves-light light-green accent-4 text-dark"
+                    [routerLink]="['/image-detail/' + img.key]"
+                    mat-mini-fab
+                    target="_blank"
+                    color="accent"
                   >
-                    Chi tiết
+                    <mdb-icon far icon="eye"></mdb-icon>
                   </a>
                   <a
                     target="_blank"
@@ -97,8 +97,17 @@
                     mat-mini-fab
                     color="warn"
                     download
+                    class="ml-1 mr-1"
                   >
                     <mdb-icon fas icon="cloud-download-alt"></mdb-icon>
+                  </a>
+                  <a
+                    target="_blank"
+                    (click)="removeImage(img.imageName, img.key)"
+                    mat-mini-fab
+                    color="primary"
+                  >
+                    <mdb-icon far icon="trash-alt"></mdb-icon>
                   </a>
                 </div>
               </div>
@@ -163,3 +172,15 @@
     </mat-tab-group>
   </div>
 </div>
+<blockquote class="blockquote bq-primary">
+  <p class="bq-title">Độ phân giải ảnh là gì?</p>
+  <p>
+    Độ phân giải hình ảnh (image resolution) chỉ lượng thông tin được chứa đựng
+    trong 1 tập tin ảnh hiển thị trên màn hình. Hiểu một cách đơn giản đó chính
+    là số lượng điểm ảnh chứa trên 1 màn hình hiển thị. <br />
+    <br />
+    1 pixel có kích thước 0,26×0,35 mm (kích thước này là tương đối). Pixcel
+    hiển thị trên màn hình là PPI (pixels per inch) khác với DPI (dots per inch
+    – mật độ ảnh trên inch được dùng trong máy in và ảnh in.
+  </p>
+</blockquote>

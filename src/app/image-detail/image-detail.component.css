@@ -25,6 +25,10 @@
   position: relative;
 }
 
+.text-fuck {
+  font-family: "Pacifico", cursive;
+}
+
 #customers {
   border-collapse: collapse;
   width: 100%;

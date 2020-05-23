@@ -16,7 +16,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  imageListOfUser: Observable<any[]>;
+  userImages: Observable<any[]>;
   config: any;
   lenghImages: number;
 
@@ -42,9 +42,10 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    this.imageListOfUser = this.firebaseService.getImageOfUser(this.user.uid);
+    this.firebaseService.loadDataUserImages(this.user.uid);
+    this.userImages = this.firebaseService.userImages;
     //Get length Images
-    this.imageListOfUser.subscribe((data) => {
+    this.userImages.subscribe((data) => {
       this.lenghImages = data.length;
     });
 
@@ -61,6 +62,25 @@ export class ProfileComponent implements OnInit {
     this.config.currentPage = event;
   }
 
+  removeImage(imageName, imageKey) {
+    Swal.fire({
+      title: 'Nàng có chắc xóa hình: ' + imageName,
+      text: 'Ta sẽ gọi đến hàm DeleteTamHinh() để xóa nó nhé?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Đừng mà',
+      confirmButtonText: 'Làm đi chàng !',
+    }).then((result) => {
+      if (result.value) {
+        this.firebaseService.removeImageByKey(imageKey);
+        Swal.fire('Xóa òi đó!', 'Tám hình vừa xóa giờ đã mất :v', 'success');
+        return;
+      }
+    });
+  }
+
   createForm(name) {
     this.profileForm = this.fb.group({
       name: [name, Validators.required],
@@ -69,8 +89,8 @@ export class ProfileComponent implements OnInit {
 
   openDialog() {
     const dialogRef = this.dialog.open(AvatarDialogComponent, {
+      width: '550px',
       height: '350px',
-      width: '560px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

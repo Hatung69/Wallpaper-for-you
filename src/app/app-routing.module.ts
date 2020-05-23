@@ -23,7 +23,7 @@ const routes: Routes = [
     component: ProfileComponent,
     resolve: { data: UserResolver },
   },
-  { path: 'image-detail/:imageID', component: ImageDetailComponent },
+  { path: 'image-detail/:objID', component: ImageDetailComponent },
   { path: 'images-category/:category', component: ImagesCategoryComponent },
   { path: '404', component: NotfoundComponent },
   { path: '**', component: NotfoundComponent },
