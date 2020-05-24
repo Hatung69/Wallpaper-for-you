@@ -1,11 +1,12 @@
 export class ListCategory {
   static categogy: string[] = [
     'Không rõ',
-    'Kỷ niệm',
+    'Digital Art',
     'Video games',
     'Anime',
     'Gái xinh',
     'Màu sắc',
+    'Kỷ niệm',
     'Heros',
     'Trẻ em',
     'Jav Idol',

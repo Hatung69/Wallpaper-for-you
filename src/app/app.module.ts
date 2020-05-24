@@ -12,7 +12,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './commons/header/header.component';

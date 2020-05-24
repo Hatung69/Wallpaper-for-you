@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
     //Get length Images
     this.images.subscribe((data) => {
       this.lenghImages = data.length;
-      console.log(data);
     });
     //Config pagination
     this.config = {
