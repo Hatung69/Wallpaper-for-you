@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyAUs_jfUvfysz5UsNEEbDGOOZ1aH1lHe7I',
-    authDomain: 'wallpapers-for-you-bdd12.firebaseapp.com',
-    databaseURL: 'https://wallpapers-for-you-bdd12.firebaseio.com',
-    projectId: 'wallpapers-for-you-bdd12',
-    storageBucket: 'wallpapers-for-you-bdd12.appspot.com',
-    messagingSenderId: '1083645075668',
-    appId: '1:1083645075668:web:51eeb40621c497554b9b41',
-    measurementId: 'G-G2CPEDT2KT',
+    apiKey: 'AIzaSyA3hYEJdai_70eP3ZQ-qA-PAD5oDrklsg4',
+    authDomain: 'wallpapers-for-you-91cad.firebaseapp.com',
+    databaseURL: 'https://wallpapers-for-you-91cad.firebaseio.com',
+    projectId: 'wallpapers-for-you-91cad',
+    storageBucket: 'wallpapers-for-you-91cad.appspot.com',
+    messagingSenderId: '1050345583637',
+    appId: '1:1050345583637:web:2960c87f917b49147f0a1c',
+    measurementId: 'G-N0JD67J1P0',
   },
 };
 
