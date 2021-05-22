@@ -7,7 +7,7 @@ Deploy:
 > - Tìm kiếm ảnh
 
 ### Thông tin phần mềm 🌐
-- &nbsp; Framework: Angular
+- &nbsp; Framework: Angular 10
 - &nbsp; Cơ sở dữ liệu: Firebase
 - &nbsp; Công cụ hỗ trợ: VSCode
 
