@@ -11,7 +11,7 @@ Deploy:
 - &nbsp; Cơ sở dữ liệu: Firebase
 - &nbsp; Công cụ hỗ trợ: VSCode
 
-<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <em><b>Ứng dụng được triển khại tại: <a href=" https://wallpapers-for-you-1b65b.web.app"></a></b> 😊</em>
+<img src="https://media.giphy.com/media/LnQjpWaON8nhr21vNW/giphy.gif" width="60"> <b><em>Ứng dụng được triển khại tại: <a href="https://wallpapers-for-you-1b65b.web.app"></a></em></b> 😊
 
 ### 1 vài hình ảnh 🌱
 
